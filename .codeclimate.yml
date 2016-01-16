@@ -1,0 +1,27 @@
+---
+engines:
+  bundler-audit:
+    enabled: true
+  coffeelint:
+    enabled: true
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+  rubocop:
+    enabled: true
+    checks:
+      Rubocop/Style/IndentationConsistency:
+        enabled: false
+ratings:
+  paths:
+  - Gemfile.lock
+  - "**.coffee"
+  - "**.js"
+  - "**.jsx"
+  - "**.rb"
+exclude_paths:
+- config/**/*
+- db/**/*
+- spec/**/*
+- vendor/**/*
