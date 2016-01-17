@@ -1,5 +1,5 @@
 require "hemp/version"
+require "hemp/application"
 
 module Hemp
-  # Your code goes here...
 end
