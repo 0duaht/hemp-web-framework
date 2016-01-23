@@ -26,7 +26,8 @@ module Hemp
     end
 
     def process_request(route)
-      controller_class = Hemp::Object.const_get(route.controller_camel).new
+      controller_class = Hemp::ObjectHelper.
+                         const_get(route.controller_camel).new
       response = controller_class.send(route.action_sym)
 
       response
