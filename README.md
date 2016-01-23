@@ -1,4 +1,5 @@
 # Hemp
+[![Build Status](https://semaphoreci.com/api/v1/projects/3124863c-96d9-4e13-933a-23ef8ea0b600/663694/badge.svg)](https://semaphoreci.com/tobi-oduah/hemp-web-framework) [![Code Climate](https://codeclimate.com/github/andela-toduah/hemp-web-framework/badges/gpa.svg)](https://codeclimate.com/github/andela-toduah/hemp-web-framework) [![Test Coverage](https://codeclimate.com/github/andela-toduah/hemp-web-framework/badges/coverage.svg)](https://codeclimate.com/github/andela-toduah/hemp-web-framework/coverage)
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hemp`. To experiment with that code, run `bin/console` for an interactive prompt.
 
