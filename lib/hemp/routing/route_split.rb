@@ -21,9 +21,16 @@ module Hemp
 
       def save_variable_and_index(split_element, index)
         variable_key = split_element.delete(":")
-        url_variable_hash[variable_key.to_sym] = index
+        url_variable_hash[index] = variable_key.to_sym
 
         "[a-zA-Z0-9_]+"
+      end
+
+      def parse_regex_and_vars_from_route
+        pick_out_url_variables
+        regex_string = "^" << url_regex_match.join("/") << "/*$"
+
+        [Regexp.new(regex_string), url_variable_hash]
       end
     end
   end

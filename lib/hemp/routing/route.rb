@@ -20,7 +20,7 @@ module Hemp
       end
 
       def controller_class
-        controller << "_controller"
+        controller + "_controller"
       end
 
       def controller_camel
@@ -33,6 +33,16 @@ module Hemp
 
       def controller_snake
         controller_class.snakecase
+      end
+
+      def get_url_vars(path_info)
+        path_elements = path_info.split("/")
+        var_collection = {}
+        url_variables.each_key do |index|
+          var_collection[url_variables[index]] = path_elements[index]
+        end
+
+        var_collection
       end
 
       def ==(other)

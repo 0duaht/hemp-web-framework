@@ -18,18 +18,14 @@ class TestApplicationCallWithEmptyEnv < Minitest::Test
   def setup
     @app = Hemp::Application.new
     env = {}
-    @response = Array.new(app.call(env))
+    @response = app.call(env)
   end
 
   def test_response_code
-    assert_equal response[0], 200
-  end
-
-  def test_empty_headers
-    assert_equal response[1], {}
+    assert_equal response.status, 200
   end
 
   def test_hello_from_hemp_body
-    assert_equal response[2], ["Hello from Hemp!"]
+    assert_equal response.body, ["Hello from Hemp"]
   end
 end

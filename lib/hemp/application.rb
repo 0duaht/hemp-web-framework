@@ -4,16 +4,16 @@ require "rack"
 
 module Hemp
   class Application
-    attr_reader :pot
+    attr_reader :pot, :request, :params
 
     def initialize
       @pot = Hemp::Routing::Base.new
     end
 
     def call(env)
-      request = Rack::Request.new(env)
+      @request = Rack::Request.new(env)
       route = find_route(request) unless env.empty?
-      [200, {}, [route ? process_request(route) : "Hello from Hemp!"]]
+      route ? process_request(route) : send_default_response
     end
 
     def find_route(request)
@@ -28,9 +28,28 @@ module Hemp
     def process_request(route)
       controller_class = Hemp::ObjectHelper.
                          const_get(route.controller_camel).new
-      response = controller_class.send(route.action_sym)
+      @params = get_params route
+      request.instance_variable_set("@params", params)
+      set_request_and_params_as_instance controller_class
+      controller_class.send(route.action_sym)
+      response = controller_class.response
 
-      response
+      response ? response : controller_class.render(route.action_sym)
+    end
+
+    def get_params(route)
+      request.params.merge(route.get_url_vars(request.path_info))
+    rescue RuntimeError
+      {}.merge(route.get_url_vars(request.path_info))
+    end
+
+    def set_request_and_params_as_instance(controller_class)
+      controller_class.instance_variable_set("@request", request)
+      controller_class.instance_variable_set("@params", params)
+    end
+
+    def send_default_response
+      Rack::Response.new "Hello from Hemp", 200, {}
     end
   end
 end
