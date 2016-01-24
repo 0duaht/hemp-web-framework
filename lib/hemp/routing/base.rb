@@ -1,16 +1,12 @@
-prefix = "hemp/routing".freeze
-require "#{prefix}/route"
-require "#{prefix}/route_syntax_error"
-require "#{prefix}/route_split"
+require "hemp/aliases"
 
 module Hemp
   module Routing
     class Base
-      attr_reader :routes
+      include Hemp::Aliases
+      include RouteExtensions
 
-      RouteAlias = Hemp::Routing::Route
-      RouteError = Hemp::Routing::RouteSyntaxError
-      RouteSplitter = Hemp::Routing::RouteSplitter
+      attr_reader :routes
 
       SUPPORTED_VERB_LIST = %w(get delete patch post put).freeze
 
@@ -27,24 +23,17 @@ module Hemp
         verbs.each do |verb|
           self.class.
             send(:define_method, verb) do |route_path, controller_hash|
-            if controller_hash.class == Hash && controller_hash.include?(:to)
-              process_route_line verb, route_path, controller_hash[:to]
-            else
-              error_constructor(
-                controller_hash,
-                "Controller hash does not contain 'to' key"
-              )
-            end
+            hash_error(controller_hash) unless hash_valid? controller_hash
+            process_route_line verb, route_path, controller_hash[:to]
           end
         end
       end
 
       def process_route_line(verb, route_path, controller_action)
         handle_errors route_path, controller_action
-        route_args = pick_out_url_variables(route_path.split("/"))
+        route_args = parse_route_args(route_path.split("/"))
         route_object = RouteAlias.new(controller_action, *route_args)
-        routes[verb.to_sym] ||= []
-        routes[verb.to_sym] << route_object
+        save_to_routes verb, route_object
       end
 
       def handle_errors(route_path, controller_action)
@@ -64,15 +53,26 @@ module Hemp
         ) if route_path.empty?
       end
 
-      def pick_out_url_variables(split_route_path)
+      def parse_route_args(split_route_path)
         route_split_helper = RouteSplitter.new(split_route_path)
-        route_split_helper.pick_out_url_variables
-        variable_hash = route_split_helper.url_variable_hash
-        regex_match = route_split_helper.url_regex_match
 
-        regex_string = "^" << regex_match.join("/") << "/*$"
+        route_split_helper.parse_regex_and_vars_from_route
+      end
 
-        [Regexp.new(regex_string), variable_hash]
+      def save_to_routes(verb, route_object)
+        routes[verb.to_sym] ||= []
+        routes[verb.to_sym] << route_object
+      end
+
+      def hash_error(controller_hash)
+        error_constructor(
+          controller_hash,
+          "Controller hash does not contain 'to' key"
+        )
+      end
+
+      def hash_valid?(controller_hash)
+        controller_hash.class == Hash && controller_hash.include?(:to)
       end
 
       def error_constructor(line, error_message)

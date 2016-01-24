@@ -5,8 +5,8 @@ class RouteTest < Minitest::Test
 
   def setup
     controller_action_string = "string#new"
-    regex = Regexp.new("/users/new")
-    url_vars = {}
+    regex = Regexp.new("/users/new/[a-zA-Z0-9_]+")
+    url_vars = { 3 => "id" }
     @route = Hemp::Routing::Route.new(
       controller_action_string, regex, url_vars
     )
@@ -30,6 +30,10 @@ class RouteTest < Minitest::Test
   end
 
   def test_route_matches_correct_path
-    assert route == "/users/new"
+    assert route == "/users/new/68"
+  end
+
+  def test_getting_url_variables
+    assert_equal route.get_url_vars("/users/new/68"), "id" => "68"
   end
 end

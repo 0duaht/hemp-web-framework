@@ -10,7 +10,7 @@ class TestRouteSplitter < Minitest::Test
   end
 
   def test_that_it_picks_out_url_variables_successfully
-    assert_equal split_route.url_variable_hash, id: 2
+    assert_equal split_route.url_variable_hash[2], :id
   end
 
   def test_that_it_saves_correct_regex
