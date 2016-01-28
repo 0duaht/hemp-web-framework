@@ -1,5 +1,4 @@
 require_relative "test_helper"
-require "fileutils"
 
 class TestFullApplication < Minitest::Test
   attr_reader :full_application, :env, :file, :controller,
@@ -12,6 +11,11 @@ class TestFullApplication < Minitest::Test
       "RACK_INPUT" => ""
     }
     set_up_full_app_and_routes
+  end
+
+  def teardown
+    File.delete @controller
+    FileUtils.rm_rf "app"
   end
 
   def set_up_full_app_and_routes
@@ -91,7 +95,6 @@ class TestFullApplication < Minitest::Test
     env["PATH_INFO"] = "/users/tobi"
     response = full_application.call(env)
     assert_equal response.body, ["Hello Tobi. HTTP method is GET"]
-    File.delete controller
   end
 
   def test_response_for_route_not_defined
