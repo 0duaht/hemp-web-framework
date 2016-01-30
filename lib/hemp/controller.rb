@@ -40,6 +40,10 @@ module Hemp
       instance_vars
     end
 
+    def redirect_to(location)
+      set_response [], 302, Location: location
+    end
+
     def set_response(body, status = 200, headers = {})
       @response = Rack::Response.new(body, status, headers)
     end
