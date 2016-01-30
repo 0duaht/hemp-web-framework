@@ -113,6 +113,6 @@ class TestFullApplication < Minitest::Test
     response = full_application.call(env)
     assert_equal response.body, []
     assert_equal response.status, 302
-    assert_equal response.headers, Location: "/users/new"
+    assert_equal response.headers, "Location": "/users/new"
   end
 end

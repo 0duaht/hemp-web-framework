@@ -41,7 +41,7 @@ module Hemp
     end
 
     def redirect_to(location)
-      set_response [], 302, Location: location
+      set_response [], 302, "Location": location
     end
 
     def set_response(body, status = 200, headers = {})
