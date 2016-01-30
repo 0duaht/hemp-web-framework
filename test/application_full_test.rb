@@ -37,6 +37,7 @@ class TestFullApplication < Minitest::Test
   def prepare_route
     full_application.pot.prepare do
       resources :users
+      get "/", to: "users#root"
     end
   end
 
@@ -74,6 +75,10 @@ class TestFullApplication < Minitest::Test
           @name = params[:id]
           @http_verb = request.request_method
         end
+
+        def root
+          redirect_to "/users/new"
+        end
       end
     STRING
   end
@@ -101,5 +106,13 @@ class TestFullApplication < Minitest::Test
     env["PATH_INFO"] = "/user/page"
     response = full_application.call(env)
     assert_equal response.body, ["Hello from Hemp"]
+  end
+
+  def test_redirect
+    env["PATH_INFO"] = "/"
+    response = full_application.call(env)
+    assert_equal response.body, []
+    assert_equal response.status, 302
+    assert_equal response.headers, Location: "/users/new"
   end
 end
