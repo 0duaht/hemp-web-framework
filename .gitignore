@@ -12,3 +12,5 @@
 /test/coverage
 /*/.DS_Store
 /.byebug_history
+/app
+/db
