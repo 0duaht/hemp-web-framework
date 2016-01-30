@@ -1,4 +1,3 @@
-require "hemp/dependencies"
 require "hemp/extensions/object"
 require "hemp/extensions/hash"
 require "hemp/routing/base"
