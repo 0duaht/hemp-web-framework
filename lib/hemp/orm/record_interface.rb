@@ -14,9 +14,8 @@ module Hemp
 
         def create(hash_arg)
           new_model = const_get(name).new(hash_arg)
-          new_model.save
 
-          new_model
+          new_model.save ? new_model : false
         end
 
         def property(name, options)

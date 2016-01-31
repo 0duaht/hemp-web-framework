@@ -70,6 +70,17 @@ class TestOrmApplication < Minitest::Test
     assert_equal Wrap.find(wrap.id).price, 1500
   end
 
+  def test_creating_records_with_invalid_attributes_fail
+    refute Wrap.create(price: 1000)
+  end
+
+  def test_updating_a_record_with_invalid_attributes_fails
+    wrap = Wrap.new(price: 1000, dealer_name: "Skinny")
+    wrap.save
+    wrap.price = nil
+    refute wrap.update
+  end
+
   def test_destroying_a_record
     wrap = Wrap.new(price: 1000, dealer_name: "Skinny")
     wrap.destroy

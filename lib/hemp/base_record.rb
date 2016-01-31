@@ -27,8 +27,9 @@ module Hemp
       row = self.class.find id
       return update if row
       SqlHelper.execute get_save_query
-
       set_id_value
+    rescue SQLite3::ConstraintException
+      false
     end
 
     def set_id_value
@@ -39,6 +40,8 @@ module Hemp
 
     def update
       SqlHelper.execute get_update_query
+    rescue SQLite3::ConstraintException
+      false
     end
 
     def destroy
@@ -46,7 +49,7 @@ module Hemp
     end
 
     def get_save_query
-      sql_values = get_values.map { |val| %('#{val}') }.join(", ")
+      sql_values = stringify_values.join(", ")
 
       "insert into #{table_name} (#{sql_properties})"\
         " values (#{sql_values})"
@@ -68,10 +71,15 @@ module Hemp
       values
     end
 
+    def stringify_values
+      get_values.map do |val|
+        val == "NULL" ? "NULL" : %('#{val}')
+      end
+    end
+
     def get_update_values
       all_update_properties = []
-      values = get_values.map { |val| %('#{val}') }
-      values.each_with_index do |value, index|
+      stringify_values.each_with_index do |value, index|
         all_update_properties << (internal_props[index].to_s + " = " + value)
       end
 
