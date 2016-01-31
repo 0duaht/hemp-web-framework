@@ -55,22 +55,19 @@ class TestOrmApplication < Minitest::Test
     assert_equal wrap.price, 1000
   end
 
-  def test_saving_records
-    wrap = Wrap.new(price: 1000, dealer_name: "Skinny")
-    id = wrap.save
+  def test_creating_records
+    wrap = Wrap.create(price: 1000, dealer_name: "Skinny")
     assert 1, Wrap.count
-    assert_includes Wrap.all, Wrap.find(id)
-
+    assert_includes Wrap.all, Wrap.find(wrap.id)
     Wrap.destroy_all
   end
 
   def test_updating_a_record
     wrap = Wrap.new(price: 1000, dealer_name: "Skinny")
-    id = wrap.save
+    wrap.save
     wrap.price = 1500
     wrap.update
-
-    assert_equal Wrap.find(id).price, 1500
+    assert_equal Wrap.find(wrap.id).price, 1500
   end
 
   def test_destroying_a_record

@@ -12,6 +12,13 @@ module Hemp
           property :id, type: :integer, primary_key: true
         end
 
+        def create(hash_arg)
+          new_model = const_get(name).new(hash_arg)
+          new_model.save
+
+          new_model
+        end
+
         def property(name, options)
           @properties ||= []
           new_property = Property.new(name, options)
