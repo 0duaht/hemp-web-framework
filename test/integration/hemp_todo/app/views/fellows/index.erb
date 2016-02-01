@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>Andela</title>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/materialize.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+
+  <body>
+    <div id="layer">
+      <div class="top-bar">
+        <div class="row">
+          <div class="left valign-wrapper">
+            <img src="images/andela-logo.jpg" width=90em />
+            <span class="white-text" id="brand-name">Andela Fellows</span>
+          </div>
+        </div>
+      </div>
+      <div class="big-line-break"></div>
+      <div class="fellow-list">
+        <div class="container add-border">
+          <div class="row" class="margin-auto">
+            <div class="white-text col l1 center">&nbsp;</div>
+            <div class="white-text col l2 center">First Name</div>
+            <div class="white-text col l2 center">Last Name</div>
+            <div class="white-text col l2 center">Email</div>
+            <div class="white-text col l2 center">Stack</div>
+            <div class="white-text col l1 center">&nbsp;</div>
+          </div>
+          <% fellows.each do |fellow| %>
+            <% url = "/fellows/#{fellow.id}" %>
+            <div class="row">
+              <form action='<%=url%>' method="POST">
+                <div class="white-text col l1 center"><%= fellow.id %></div>
+                <div class="white-text col l2 center"><%= fellow.first_name %></div>
+                <div class="white-text col l2 center"><%= fellow.last_name %></div>
+                <div class="white-text col l2 center"><%= fellow.email %></div>
+                <div class="white-text col l2 center"><%= fellow.stack %></div>
+                <a class="white-text btn col l1 center pad-right" href='<%= url %>'>Edit</a>
+                <input name="_method" type="hidden" value="delete" />
+                <input type="submit" class="white-text btn red col l1" value="Delete" />
+              </form>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="big-line-break"></div>
+      <div class="row">
+        <div class="container">
+          <a class="white-text btn blue col l3 right" href='/fellows/new'>Add New Fellow</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

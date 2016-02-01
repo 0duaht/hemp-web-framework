@@ -73,7 +73,7 @@ module Hemp
 
     def stringify_values
       get_values.map do |val|
-        val == "NULL" ? "NULL" : %('#{val}')
+        (val == "NULL") || (val == "") ? "NULL" : %('#{val}')
       end
     end
 

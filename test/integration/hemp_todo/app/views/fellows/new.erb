@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Andela</title>
+    <link href='https://fonts.googleapis.com/css?family=Alegreya' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="../css/materialize.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" />
+  </head>
+
+  <body>
+    <div id="layer">
+      <div class="top-bar">
+        <div class="row">
+          <div class="left valign-wrapper">
+            <img src="../images/andela-logo.jpg" width=90em />
+            <span class="white-text" id="brand-name">Andela Fellows</span>
+          </div>
+        </div>
+      </div>
+      <div class="big-line-break"></div>
+      <div class="fellow-list">
+        <div class="container">
+          <div class="row">
+            <div class="col l3">&nbsp;</div>
+            <div class="col l5">
+              <form action="/fellows" method="POST">
+                <input type="text" class="center white-text" name="first_name" placeholder="First Name" />
+                <input type="text" class="center white-text" name="last_name" placeholder="Last Name" />
+                <input type="text" class="center white-text" name="email" placeholder="Email" />
+                <input type="text" class="center white-text" name="stack" placeholder="Stack" />
+                <input type="submit" class="right btn" value="Add Fellow"/>
+              </form>
+            </div>
+            <div class="col l3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -74,7 +74,7 @@ module Hemp
         def count
           row = SqlHelper.execute "select count(*) from #{@table_name}"
 
-          row.first
+          row.first.first
         end
 
         def all
