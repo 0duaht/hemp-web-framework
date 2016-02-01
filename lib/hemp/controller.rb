@@ -18,7 +18,7 @@ module Hemp
 
     def get_tilt_template(controller_folder, action)
       template_file = File.join(
-        "app", "views", controller_folder, "#{action}.erb"
+        RACK_ROOT, "app", "views", controller_folder, "#{action}.erb"
       )
 
       Tilt.new template_file
