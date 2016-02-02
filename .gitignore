@@ -16,3 +16,4 @@
 /db
 /test/integration/.DS_Store
 /test/integration/coverage
+/test/integration/.byebug_history
