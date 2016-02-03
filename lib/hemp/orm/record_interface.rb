@@ -22,11 +22,14 @@ module Hemp
           @properties ||= []
           new_property = Property.new(name, options)
           @properties << new_property unless @properties.include? new_property
+        rescue DatabaseError => e
+          puts e.message
+          exit
         end
 
         def get_properties
           props = @properties.map(&:name)
-          props.delete(:id)
+          props.delete :id
 
           props
         end
@@ -58,7 +61,7 @@ module Hemp
 
         def initialize_model(row)
           model = const_get(name).new
-          set_instance_vars(model, row)
+          set_instance_vars model, row
 
           model
         end

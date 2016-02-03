@@ -13,9 +13,9 @@ module Hemp
         @options.each_pair do |key, value|
           case key
           when :type
-            instance_variable_set("@type", (value == :text ? "varchar" : value))
+            instance_variable_set("@type", value) if supported_type? value
           when :primary_key, :nullable
-            instance_variable_set("@#{key}", value)
+            instance_variable_set "@#{key}", value
           end
         end
       end
@@ -31,6 +31,14 @@ module Hemp
           (nullable ? "" : " not null") <<
           (primary_key ? " primary key" : "") <<
           (primary_key && type == :integer ? " autoincrement" : "")
+      end
+
+      def supported_type?(arg)
+        if %w(boolean integer text).include? arg.to_s
+          true
+        else
+          raise DatabaseError.new "Type parameter passed in not supported."
+        end
       end
 
       def ==(other)

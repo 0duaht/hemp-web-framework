@@ -1,5 +1,4 @@
 require_relative "../test_helper"
-ROOT = __dir__
 require "rack/test"
 
 class TestIntegrationApp < Minitest::Test
@@ -8,8 +7,8 @@ class TestIntegrationApp < Minitest::Test
   self.count = 0
 
   def app
-    self.class.app ||= Rack::Builder.parse_file("#{ROOT}/hemp_todo/config.ru").
-                       first
+    self.class.app ||= Rack::Builder.parse_file(
+      "#{__dir__}/hemp_todo/config.ru").first
   end
 
   def test_adding_new_fellow

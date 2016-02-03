@@ -41,9 +41,8 @@ module Hemp
 
     def set_request_and_params_as_instance(route, controller_class)
       params = get_params(route)
-      request.instance_variable_set("@params", params)
-      controller_class.instance_variable_set("@request", request)
-      controller_class.instance_variable_set("@params", OpenStruct.new(params))
+      request.instance_variable_set "@params", params
+      controller_class.instance_variable_set "@request", request
     end
 
     def obtain_appropriate_response(controller_class, route)

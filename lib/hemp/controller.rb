@@ -6,19 +6,18 @@ require "rack"
 
 module Hemp
   class BaseController
-    attr_reader :response, :request, :params
+    attr_reader :response, :request
 
     def render(action, instance_vars = get_instance_vars)
       controller_folder = self.class.name.pathize.split("_").first
       tilt_template = get_tilt_template(controller_folder, action)
       instance_vars.delete_field :request
-      instance_vars.delete_field :params
       set_response(tilt_template.render(instance_vars))
     end
 
     def get_tilt_template(controller_folder, action)
       template_file = File.join(
-        RACK_ROOT, "app", "views", controller_folder, "#{action}.erb"
+        RACK_ROOT, "app", "views", controller_folder, "#{action}.html.erb"
       )
 
       Tilt.new template_file
@@ -46,6 +45,10 @@ module Hemp
 
     def set_response(body, status = 200, headers = {})
       @response = Rack::Response.new(body, status, headers)
+    end
+
+    def params
+      @params ||= OpenStruct.new(request.params)
     end
   end
 end
