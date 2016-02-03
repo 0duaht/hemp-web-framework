@@ -1,4 +1,5 @@
 require "sqlite3"
+require "hemp/orm/database_error"
 require "hemp/orm/property"
 require "hemp/orm/sql_helper"
 require "hemp/orm/record_interface"
