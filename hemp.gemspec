@@ -32,14 +32,14 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rack"
-  spec.add_development_dependency "rack-test"
-  spec.add_development_dependency "facets"
-  spec.add_development_dependency "minitest"
-  spec.add_development_dependency "erubis"
-  spec.add_development_dependency "tilt"
-  spec.add_development_dependency "sqlite3"
-  spec.add_development_dependency "codeclimate-test-reporter"
+  spec.add_dependency "bundler", "~> 1.10"
+  spec.add_dependency "rake", "~> 10.0"
+  spec.add_dependency "rack"
+  spec.add_dependency "rack-test"
+  spec.add_dependency "facets"
+  spec.add_dependency "minitest"
+  spec.add_dependency "erubis"
+  spec.add_dependency "tilt"
+  spec.add_dependency "sqlite3"
+  spec.add_dependency "codeclimate-test-reporter"
 end
