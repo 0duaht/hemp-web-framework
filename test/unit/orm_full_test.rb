@@ -1,4 +1,4 @@
-require_relative "test_helper"
+require_relative "../test_helper"
 
 class TestOrmApplication < Minitest::Test
   attr_reader :model, :invalid_model

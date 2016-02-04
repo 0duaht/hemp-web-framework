@@ -1,4 +1,4 @@
-require_relative "test_helper"
+require_relative "../test_helper"
 
 class TestRouteSplitter < Minitest::Test
   attr_reader :split_route

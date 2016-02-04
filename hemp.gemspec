@@ -41,6 +41,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "erubis"
   spec.add_development_dependency "tilt"
   spec.add_development_dependency "sqlite3"
-  spec.add_development_dependency "simplecov"
   spec.add_development_dependency "codeclimate-test-reporter"
 end
