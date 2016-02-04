@@ -21,10 +21,11 @@ module Hemp
 
       def verb_helper(verbs)
         verbs.each do |verb|
-          self.class.
-            send(:define_method, verb) do |route_path, controller_hash|
-            hash_error(controller_hash) unless hash_valid? controller_hash
-            process_route_line verb, route_path, controller_hash[:to]
+          self.class.instance_eval do
+            define_method(verb) do |route_path, controller_hash|
+              hash_error(controller_hash) unless hash_valid? controller_hash
+              process_route_line verb, route_path, controller_hash[:to]
+            end
           end
         end
       end

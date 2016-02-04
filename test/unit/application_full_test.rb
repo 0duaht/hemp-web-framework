@@ -29,7 +29,7 @@ class TestFullApplication < Minitest::Test
   end
 
   def prepare_route
-    full_application.pot.prepare do
+    full_application.route_pot.prepare do
       resources :users
       get "/", to: "users#root"
     end

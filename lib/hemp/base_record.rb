@@ -21,22 +21,22 @@ module Hemp
         row << hash_arg.values_at(property.name)
       end
 
-      self.class.set_instance_vars(self, row.flatten)
+      self.class.set_instance_vars self, row.flatten
     end
 
     def save
       row = self.class.find id
       return update if row
       SqlHelper.execute get_save_query
+
       set_id_value
     rescue SQLite3::ConstraintException
       false
     end
 
     def set_id_value
-      id = SqlHelper.execute("select last_insert_rowid() "\
+      self.id = SqlHelper.execute("select last_insert_rowid() "\
         "from #{table_name}").first.first
-      instance_variable_set "@id", id
     end
 
     def update

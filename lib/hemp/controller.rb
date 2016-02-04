@@ -8,6 +8,10 @@ module Hemp
   class BaseController
     attr_reader :response, :request
 
+    def initialize(request)
+      @request = request
+    end
+
     def render(action, instance_vars = get_instance_vars)
       controller_folder = self.class.name.pathize.split("_").first
       tilt_template = get_tilt_template(controller_folder, action)
