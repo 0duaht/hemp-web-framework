@@ -1,4 +1,4 @@
-require_relative "test_helper"
+require_relative "../test_helper"
 
 class TestFullApplication < Minitest::Test
   attr_reader :full_application, :env, :file, :controller,

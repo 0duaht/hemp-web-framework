@@ -1,6 +1,5 @@
 require "hemp"
 RACK_ROOT = __dir__
-$LOAD_PATH.unshift File.expand_path(RACK_ROOT)
 
 require_relative "config/application"
 

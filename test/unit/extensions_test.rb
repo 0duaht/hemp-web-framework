@@ -1,4 +1,4 @@
-require_relative "test_helper"
+require_relative "../test_helper"
 
 class TestExtensions < Minitest::Test
   def test_hash_extension
