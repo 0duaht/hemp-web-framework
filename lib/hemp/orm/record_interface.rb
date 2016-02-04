@@ -9,11 +9,10 @@ module Hemp
 
         def to_table(name)
           @table_name = name
-          property :id, type: :integer, primary_key: true
         end
 
         def create(hash_arg)
-          new_model = const_get(name).new(hash_arg)
+          new_model = new(hash_arg)
 
           new_model.save ? new_model : false
         end
@@ -35,6 +34,7 @@ module Hemp
         end
 
         def create_table
+          property :id, type: :integer, primary_key: true
           SqlHelper.execute "create table if not exists "\
           "#{@table_name} (#{@properties.join(', ')})"
 
@@ -49,7 +49,7 @@ module Hemp
 
         def expose_instance_vars
           @properties.map(&:name).each do |name|
-            const_get(self.name).class_eval { attr_accessor name.to_sym }
+            class_eval { attr_accessor name.to_sym }
           end
         end
 
@@ -60,7 +60,7 @@ module Hemp
         end
 
         def initialize_model(row)
-          model = const_get(name).new
+          model = new
           set_instance_vars model, row
 
           model

@@ -1,7 +1,7 @@
 module Hemp
   module Orm
     class Property
-      attr_reader :name, :options, :type, :primary_key, :nullable
+      attr_accessor :name, :options, :type, :primary_key, :nullable
       def initialize(name, options = {})
         @name = name
         @options = options
@@ -13,7 +13,7 @@ module Hemp
         @options.each_pair do |key, value|
           case key
           when :type
-            instance_variable_set("@type", value) if supported_type? value
+            self.type = value if supported_type? value
           when :primary_key, :nullable
             instance_variable_set "@#{key}", value
           end
