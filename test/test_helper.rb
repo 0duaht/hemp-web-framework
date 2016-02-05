@@ -9,6 +9,7 @@ require "fileutils"
 
 class MyTest < Minitest::Unit
   after_tests do
+    Hemp::Orm::SqlHelper.close
     FileUtils.rm_rf "db"
   end
 end

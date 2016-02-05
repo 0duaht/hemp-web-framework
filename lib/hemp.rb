@@ -1,5 +1,5 @@
 require "hemp/version"
+require "hemp/dependencies"
 require "hemp/application"
 require "hemp/controller"
 require "hemp/base_record"
-require "hemp/dependencies"

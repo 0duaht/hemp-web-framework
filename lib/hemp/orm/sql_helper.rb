@@ -9,6 +9,10 @@ module Hemp
       def self.execute(*sql_args)
         @db.execute(*sql_args)
       end
+
+      def self.close
+        @db.close
+      end
     end
   end
 end

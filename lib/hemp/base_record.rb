@@ -10,18 +10,14 @@ module Hemp
     include Hemp::Orm::ClassInstanceVars
 
     def initialize(hash_arg = {})
-      self.class.expose_instance_vars
       return super() if hash_arg.empty?
       save_model_attributes hash_arg
     end
 
     def save_model_attributes(hash_arg)
-      row = []
       properties.map do |property|
-        row << hash_arg.values_at(property.name)
+        send "#{property.name}=", hash_arg[property.name]
       end
-
-      self.class.set_instance_vars self, row.flatten
     end
 
     def save

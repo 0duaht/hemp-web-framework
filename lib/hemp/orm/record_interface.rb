@@ -48,9 +48,7 @@ module Hemp
         end
 
         def expose_instance_vars
-          @properties.map(&:name).each do |name|
-            class_eval { attr_accessor name.to_sym }
-          end
+          attr_accessor(*@properties.map(&:name.to_sym))
         end
 
         def set_instance_vars(scope, row)
